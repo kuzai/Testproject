@@ -109,7 +109,14 @@ public class RecAdapter extends RecyclerView.Adapter<RecAdapter.ViewHolder> {
     public void onBindViewHolder(final RecAdapter.ViewHolder holder, final int position) {
         //get element at pos from data set
         //replace contents of view with element
+
+
+
         final JSONObject name = mDataSet.get(position);
+
+        ArrayList<JSONObject> images = helper.getAllImages(name, imagesKey);
+        helper.printJSONImageArray(name, imagesKey);
+
         holder.title.setText(helper.jsonParser(name, titleKey));
 
         String content = helper.jsonParser(name, contentKey);
@@ -118,7 +125,8 @@ public class RecAdapter extends RecyclerView.Adapter<RecAdapter.ViewHolder> {
 
         Date date = new Date(helper.jsonDateParser(name, dateKey));
         holder.date.setText(date.toString());
-        String url = helper.getJSONImages(name, imagesKey, "small");
+
+        String url = helper.getFirstImageType(images, "small");
         if(url != null) {
             Picasso.with(context).load(url).into(holder.image);
         }
@@ -140,7 +148,8 @@ public class RecAdapter extends RecyclerView.Adapter<RecAdapter.ViewHolder> {
                 //bundle all of the above
                 //start fragment with said bundle and then unpack
 
-                ArrayList<String> images = helper.getAllImages(name, imagesKey);
+                ArrayList<JSONObject> images = helper.getAllImages(name, imagesKey);
+                ArrayList<String> allLargeImages = helper.getAllImageTypeURLS(images, "large");
                 String titleB = helper.jsonParser(name, titleKey);
                 long millisB = helper.jsonDateParser(name, dateKey);
                 String contentB = helper.jsonParser(name, contentKey);
@@ -148,7 +157,7 @@ public class RecAdapter extends RecyclerView.Adapter<RecAdapter.ViewHolder> {
 
                 Bundle bundle = new Bundle();
                 bundle.putBoolean("useDarkTheme", useDarkTheme);
-                bundle.putStringArrayList("images", images);
+                bundle.putStringArrayList("largeImages", allLargeImages);
                 bundle.putLong("date", millisB);
                 bundle.putString("content", contentB);
                 bundle.putString("title", titleB);

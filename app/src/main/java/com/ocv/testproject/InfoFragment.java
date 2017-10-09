@@ -89,7 +89,7 @@ public class InfoFragment extends Fragment {
         content = args.getString("content");
         title = args.getString("title");
         date = args.getLong("date");
-        images = args.getStringArrayList("images");
+        images = args.getStringArrayList("largeImages");
 
         useDarkTheme = args.getBoolean("useDarkTheme", false);
         setHasOptionsMenu(true);

@@ -51,22 +51,28 @@ public class JSONHelper {
     }
 
 
-    public ArrayList<String> getAllImages(JSONObject o, String key) {
-        JSONArray images = jsonSubarray(o, key);
-        ArrayList<String> urls = new ArrayList<>();
+    public ArrayList<JSONObject> getAllImages(JSONObject o, String key) {
+        ArrayList<JSONObject> urls = new ArrayList<>();
         try {
-            String res;
+            JSONArray images = o.getJSONArray(key);
+            //image array is an array of objects that may or may not have a large and small image each
+            //what I want to do is get the array of the objects and then send each individual object to be parsed
+            for(int i = 0; i < images.length(); i++) {
+                urls.add(images.getJSONObject(i));
+                Log.i("URL retrieved", images.getJSONObject(i).toString());
+            }
+            return urls;
+            /*String res;
             if ((res = jsonParser(images.getJSONObject(0), "small")) != null) {
                 urls.add(res);
             }
             if ((res = jsonParser(images.getJSONObject(0), "large")) != null) {
                 urls.add(res);
-            }
+            }*/
         } catch (JSONException e) {
             //Log.e("JSON Error", "Unknown index");
             return null;
         }
-        return urls;
     }
 
 
@@ -82,9 +88,47 @@ public class JSONHelper {
             return millis;
 
         } catch (JSONException e) {
-            //Log.e("jsonDate", "Messed up somehow");
+            Log.e("jsonDate", "Date format as given doesn't exist");
             return 0;
         }
+    }
+
+    public void printJSONImageArray(JSONObject o, String key) {
+        try {
+            JSONArray imageArray = o.getJSONArray(key);
+            Log.i("Image Array", imageArray.toString());
+        } catch (JSONException e) {
+            Log.e("JSON Image Array", "The image array couldn't be found");
+        }
+
+    }
+
+    public ArrayList<String> getAllImageTypeURLS(ArrayList<JSONObject> o, String key) {
+        ArrayList<String> urls = new ArrayList<>();
+        for(JSONObject j : o) {
+            try {
+                String url = j.getString(key);
+                urls.add(url);
+                Log.i("Image added", "" + url + ", key: " + key);
+            } catch (JSONException e) {
+                Log.e("Image key doesn't exist", "JSONArray: " + o.toString() + ", " + "key: " + key);
+            }
+        }
+        return urls;
+    }
+
+    public String getFirstImageType(ArrayList<JSONObject> o, String key) {
+        String url;
+        for(JSONObject j : o) {
+            try {
+                url = j.getString(key);
+                Log.i("Image url returned type", "" + key + ", url: " + url);
+                return url;
+            } catch (JSONException e) {
+                Log.e("Image didn't exist", "JSONArray: " + o.toString() + ", key: " + key);
+            }
+        }
+        return null;
     }
 
 }
