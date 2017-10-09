@@ -15,6 +15,7 @@ import android.text.Html;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.GridView;
 import android.widget.TextView;
 
 import java.util.ArrayList;
@@ -122,8 +123,9 @@ public class InfoFragment extends Fragment {
         recyclerView = (RecyclerView) view.findViewById(R.id.recycle_info_image);
         adapter = new ImageRecAdapter(images, getContext());
         recyclerView.setAdapter(adapter);
-        layoutManager = new GridLayoutManager(getContext(), 2);
+        layoutManager = new GridLayoutManager(getContext(), 1, GridLayoutManager.HORIZONTAL, false);
         recyclerView.setLayoutManager(layoutManager);
+        recyclerView.setHasFixedSize(true);
 
 
 
