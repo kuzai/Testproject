@@ -91,13 +91,9 @@ public class RecAdapter extends RecyclerView.Adapter<RecAdapter.ViewHolder> {
     @Override
     public RecAdapter.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
 
-
         LayoutInflater inflater = LayoutInflater.from(parent.getContext());
         View v = inflater.inflate(R.layout.my_text_view, parent, false);
 
-        //create a view
-
-        //set the parameters of the view
         ViewHolder vh = new ViewHolder(v);
 
         return vh;
@@ -107,10 +103,6 @@ public class RecAdapter extends RecyclerView.Adapter<RecAdapter.ViewHolder> {
     //this replaces the contents of a view
     @Override
     public void onBindViewHolder(final RecAdapter.ViewHolder holder, final int position) {
-        //get element at pos from data set
-        //replace contents of view with element
-
-
 
         final JSONObject name = mDataSet.get(position);
 
@@ -132,28 +124,15 @@ public class RecAdapter extends RecyclerView.Adapter<RecAdapter.ViewHolder> {
         }
         else holder.image.setVisibility(View.GONE);
 
-
-        //getJSONImages(name, imagesKey);
-
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //Log.e("Item No.: ", "" + position);
-
-                //get the data into the right categories.
-                //get image urls and convert to string array
-                //get title
-                //get date
-                //get description
-                //bundle all of the above
-                //start fragment with said bundle and then unpack
 
                 ArrayList<JSONObject> images = helper.getAllImages(name, imagesKey);
                 ArrayList<String> allLargeImages = helper.getAllImageTypeURLS(images, "large");
                 String titleB = helper.jsonParser(name, titleKey);
                 long millisB = helper.jsonDateParser(name, dateKey);
                 String contentB = helper.jsonParser(name, contentKey);
-                //Log.e("ContenB", contentB);
 
                 Bundle bundle = new Bundle();
                 bundle.putBoolean("useDarkTheme", useDarkTheme);
@@ -161,7 +140,6 @@ public class RecAdapter extends RecyclerView.Adapter<RecAdapter.ViewHolder> {
                 bundle.putLong("date", millisB);
                 bundle.putString("content", contentB);
                 bundle.putString("title", titleB);
-                //Log.e("There", "" + bundle.containsKey("content"));
 
                 android.support.v4.app.Fragment fragment = new InfoFragment();
                 fragment.setArguments(bundle);

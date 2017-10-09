@@ -180,10 +180,6 @@ public class ListFragment extends Fragment {
 
     private void setupList(){
         //TODO Code used to attach list to RecyclerView should go here
-        //mAdapter = new RecAdapter(items);
-        //Log.i("List", items.toString());
-        for(JSONObject o : items)
-            Log.i("Object:", o.names().toString());
 
         mAdapter = new RecAdapter(items, getContext(), useDarkTheme);
         mRecyclerView.setAdapter(mAdapter);

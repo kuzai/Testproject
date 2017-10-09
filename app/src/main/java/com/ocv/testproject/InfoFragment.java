@@ -93,7 +93,6 @@ public class InfoFragment extends Fragment {
 
         useDarkTheme = args.getBoolean("useDarkTheme", false);
         setHasOptionsMenu(true);
-        //Log.e("Content", args.getString("content"));
     }
 
     @Override
@@ -118,7 +117,6 @@ public class InfoFragment extends Fragment {
         text = (TextView) view.findViewById(R.id.blank_field);
         dateField = (TextView) view.findViewById(R.id.date_field);
         dateField.setText(new Date(date).toString());
-        //Log.e("content2", content);
         text.setText(Html.fromHtml(content));
 
         recyclerView = (RecyclerView) view.findViewById(R.id.recycle_info_image);
@@ -126,7 +124,6 @@ public class InfoFragment extends Fragment {
         recyclerView.setAdapter(adapter);
         layoutManager = new GridLayoutManager(getContext(), 2);
         recyclerView.setLayoutManager(layoutManager);
-        //recyclerView.setHasFixedSize(true);
 
 
 

@@ -60,7 +60,6 @@ public class ImageRecAdapter extends RecyclerView.Adapter<ImageRecAdapter.ViewHo
             this.images = new ArrayList<String>();
         }
         this.context = context;
-        //Log.e("images construct", this.images.toString());
 
     }
 
@@ -69,9 +68,6 @@ public class ImageRecAdapter extends RecyclerView.Adapter<ImageRecAdapter.ViewHo
         LayoutInflater inflater = LayoutInflater.from(parent.getContext());
         View v = inflater.inflate(R.layout.all_image_recycler, parent, false);
 
-        //create a view
-
-        //set the parameters of the view
         ImageRecAdapter.ViewHolder vh = new ImageRecAdapter.ViewHolder(v);
 
         return vh;
@@ -79,7 +75,6 @@ public class ImageRecAdapter extends RecyclerView.Adapter<ImageRecAdapter.ViewHo
 
     @Override
     public void onBindViewHolder(ImageRecAdapter.ViewHolder holder, final int position) {
-       // Log.e("images recy", images.toString());
         Picasso.with(context).load(images.get(position)).into(holder.image);
 
         holder.itemView.setOnClickListener(new View.OnClickListener() {

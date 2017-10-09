@@ -24,7 +24,7 @@ public class JSONHelper {
         try{
             res = o.getString(key);
         } catch (JSONException e) {
-            //Log.e("JSON Error: ", "The given key: "+key + " could not be found");
+            Log.e("JSON Error: ", "The given key: "+key + " could not be found");
             return null;
         }
         return res;
@@ -35,7 +35,7 @@ public class JSONHelper {
         try {
             array = o.getJSONArray(key);
         } catch (JSONException e) {
-            //Log.e("Array Key: ", "Array key wasn't found or something");
+            Log.e("Array Key: ", "Array key wasn't found");
             return null;
         }
         return array;
@@ -55,22 +55,13 @@ public class JSONHelper {
         ArrayList<JSONObject> urls = new ArrayList<>();
         try {
             JSONArray images = o.getJSONArray(key);
-            //image array is an array of objects that may or may not have a large and small image each
-            //what I want to do is get the array of the objects and then send each individual object to be parsed
             for(int i = 0; i < images.length(); i++) {
                 urls.add(images.getJSONObject(i));
                 Log.i("URL retrieved", images.getJSONObject(i).toString());
             }
             return urls;
-            /*String res;
-            if ((res = jsonParser(images.getJSONObject(0), "small")) != null) {
-                urls.add(res);
-            }
-            if ((res = jsonParser(images.getJSONObject(0), "large")) != null) {
-                urls.add(res);
-            }*/
         } catch (JSONException e) {
-            //Log.e("JSON Error", "Unknown index");
+            Log.e("JSON Error", "Unknown index");
             return null;
         }
     }
@@ -81,10 +72,8 @@ public class JSONHelper {
         JSONObject date;
         try {
             date = o.getJSONObject(key);
-            //Log.e("Date", date.toString());
             millis = date.getLong("usec");
             millis += date.getLong("sec") * 1000;
-            //Log.e("Millis", "" + millis);
             return millis;
 
         } catch (JSONException e) {
